@@ -255,17 +255,29 @@ function Revelations() {
         <Lead>{COPY.revelations.lead}</Lead>
       </Reveal>
 
-      <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Blocos fixos: tudo visível de cara, sem precisar clicar */}
+      <div className="mt-14 grid gap-5 lg:grid-cols-3">
         {COPY.revelations.items.map((item, i) => (
-          <Reveal key={item.title} delay={i * 140} from="scale">
-            <TarotCard
-              numeral={item.numeral}
-              title={item.title}
-              text={item.text}
-              glyph={glyphs[i] ?? "star"}
-              hint={COPY.revelations.hint}
-              autoFlipDelay={400 + i * 550}
-            />
+          <Reveal key={item.title} delay={i * 130}>
+            <article className="group relative h-full overflow-hidden rounded-2xl border border-primary/25 bg-card/80 p-7 text-center backdrop-blur-sm transition-all duration-500 hover:-translate-y-1.5 hover:border-primary/50">
+              <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-primary/10 blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="pointer-events-none absolute inset-[7px] rounded-xl border border-primary/10" />
+
+              <div className="relative">
+                <span className="font-display text-sm tracking-[0.35em] text-primary/70">
+                  {item.numeral}
+                </span>
+
+                <span className="mx-auto mt-4 flex h-14 w-14 items-center justify-center rounded-full border border-primary/25 text-primary">
+                  <Glyph name={glyphs[i] ?? "star"} className="h-7 w-7" />
+                </span>
+
+                <h3 className="mt-5 font-display text-xl leading-snug text-foreground">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+              </div>
+            </article>
           </Reveal>
         ))}
       </div>

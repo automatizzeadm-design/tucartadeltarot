@@ -42,7 +42,6 @@ export const COPY = {
     eyebrow: "Va mucho más allá de «me quiere / no me quiere»",
     title: "Las 3 cosas que la Carta Canalizada revela en la práctica",
     lead: "No es adivinación suelta ni suposiciones. Antes de abrir las cartas hago las preguntas correctas sobre TU caso y leo su energía directamente, sin necesidad de hablar con él.",
-    hint: "Toca cada carta para darle la vuelta",
     items: [
       {
         numeral: "I",
