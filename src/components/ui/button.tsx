@@ -16,13 +16,18 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        ritual:
+          "bg-primary text-primary-foreground shadow-[var(--shadow-halo)] tracking-[0.14em] uppercase hover:brightness-110 hover:-translate-y-0.5 transition-all duration-500",
+        veil: "border border-border bg-transparent text-primary tracking-[0.14em] uppercase hover:bg-secondary/60 transition-all duration-500",
       },
       size: {
         default: "h-9 px-4 py-2",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
+        xl: "h-14 rounded-md px-10 text-xs",
         icon: "h-9 w-9",
       },
+
     },
     defaultVariants: {
       variant: "default",
