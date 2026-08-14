@@ -92,11 +92,8 @@
   --gold-soft: oklch(0.88 0.07 88);
   --veil: oklch(0.12 0.04 268);
 
-  --gradient-night: radial-gradient(
-      120% 80% at 50% 0%,
-      oklch(0.3 0.09 282 / 0.75) 0%,
-      transparent 65%
-    ),
+  --gradient-night:
+    radial-gradient(120% 80% at 50% 0%, oklch(0.3 0.09 282 / 0.75) 0%, transparent 65%),
     linear-gradient(180deg, oklch(0.16 0.045 268) 0%, oklch(0.12 0.04 268) 100%);
   --gradient-gold: linear-gradient(
     100deg,
@@ -214,4 +211,181 @@
 
 @utility animate-reveal-card {
   animation: reveal-card var(--transition-ritual) both;
+}
+
+/* ============================================================
+   Céu noturno, cartas e CTA — animações da página de vendas
+   ============================================================ */
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes drift-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+}
+
+@keyframes drift-slower {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(-5%, 4%, 0) scale(1);
+  }
+}
+
+@keyframes card-sheen {
+  0%,
+  70%,
+  100% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  95% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+@keyframes cta-sheen {
+  0%,
+  60%,
+  100% {
+    transform: translateX(-100%);
+  }
+  85% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes cta-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 18px 45px -18px oklch(0.82 0.13 85 / 0.85),
+      0 0 0 0 oklch(0.82 0.13 85 / 0.4);
+  }
+  50% {
+    box-shadow:
+      0 18px 45px -18px oklch(0.82 0.13 85 / 0.95),
+      0 0 0 10px oklch(0.82 0.13 85 / 0);
+  }
+}
+
+@keyframes rise-fade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@utility animate-twinkle {
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+@utility animate-drift-slow {
+  animation: drift-slow 26s ease-in-out infinite;
+}
+
+@utility animate-drift-slower {
+  animation: drift-slower 34s ease-in-out infinite;
+}
+
+@utility animate-card-sheen {
+  animation: card-sheen 7s ease-in-out infinite;
+}
+
+@utility animate-cta-sheen {
+  animation: cta-sheen 4.5s ease-in-out infinite;
+}
+
+@utility animate-cta-pulse {
+  animation: cta-pulse 3s ease-in-out infinite;
+}
+
+@utility animate-rise-fade {
+  animation: rise-fade 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@utility animate-orbit-spin {
+  animation: orbit-spin 40s linear infinite;
+}
+
+@utility animate-pulse-ring {
+  animation: pulse-ring 2.6s ease-out infinite;
+}
+
+/* Moldura de pergaminho usada nos blocos de oferta e garantia */
+@utility frame-ritual {
+  position: relative;
+  border: 1px solid color-mix(in oklch, var(--primary) 35%, transparent);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--card) 92%, transparent) 0%,
+    color-mix(in oklch, var(--background) 88%, transparent) 100%
+  );
+  box-shadow: var(--shadow-halo);
+}
+
+/* Texto com sublinhado dourado desenhado à mão */
+@utility mark-gold {
+  background-image: linear-gradient(
+    to top,
+    oklch(0.82 0.13 85 / 0.28) 0%,
+    oklch(0.82 0.13 85 / 0.28) 32%,
+    transparent 32%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
