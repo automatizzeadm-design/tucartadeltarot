@@ -84,7 +84,7 @@ export const COPY = {
       },
     ],
     closing: [
-      "No te juzgo por nada de esto. Yo hice exactamente lo mismo. Dormía con el celular en la mano y despertaba deslizando el dedo en la pantalla para ver si había respondido. Nunca lo había hecho.",
+      "No te juzgo por nada de esto: yo dormía con el celular en la mano y despertaba deslizando el dedo en la pantalla para ver si había respondido. Nunca lo había hecho.",
       "Lo que más me dolió no fue que se fuera. Fue nunca haber sabido lo que de verdad pasaba dentro de él. De ese dolor nació la Carta Canalizada.",
     ],
   },
@@ -94,8 +94,7 @@ export const COPY = {
     eyebrow: "El método La Voz Oculta del Amor",
     title: "La Carta Canalizada no es una lectura. Es la traducción de lo que él siente y no dice.",
     paragraphs: [
-      "Todo hombre carga un sentimiento debajo del orgullo, una voz que no deja salir. Ahí está guardada la respuesta que estás buscando.",
-      "Abro el Tarot dirigido a TU caso, uno las cartas con mi intuición y accedo al campo energético de la relación: ese hilo que la distancia, la pelea y el silencio no borran. Y ahí traduzco lo que él siente y no logra decir.",
+      "Todo hombre carga un sentimiento debajo del orgullo, una voz que no deja salir. Ahí está guardada la respuesta que estás buscando. Yo accedo al campo energético de la relación —ese hilo que la distancia, la pelea y el silencio no borran— y traduzco lo que él siente y no logra decir.",
       "Recibes una carta escrita como si fuera él hablándote. Sin filtro, sin máscara, sin orgullo. Todo lo que nunca tuvo el valor de decirte, por fin lo vas a leer.",
     ],
     steps: [
@@ -174,8 +173,7 @@ export const COPY = {
       "No es un juego de azar para darte esperanza y quitarte el dinero.",
     ],
     closing: [
-      "Aquí no hay ningún robot escribiendo en mi lugar. Cada carta está hecha a mano, por mí, una a la vez.",
-      "Quien hace tu lectura soy yo, de principio a fin. Una persona de verdad, sintiendo tu caso. No un número. Yo.",
+      "Aquí no hay ningún robot escribiendo en mi lugar: cada carta está hecha a mano, por mí, una a la vez. De principio a fin. Una persona de verdad, sintiendo tu caso. No un número. Yo.",
     ],
   },
 

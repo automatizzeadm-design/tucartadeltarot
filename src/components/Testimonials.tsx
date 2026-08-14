@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -10,13 +10,12 @@ type Item = {
 };
 
 /**
- * Carrossel de depoimentos: arrasta com o dedo/mouse, anda sozinho a cada 6s
- * e para quando a visitante interage.
+ * Depoimentos em carrossel horizontal — arrasta com o dedo, como no original.
+ * Sem auto-play: menos movimento na tela, mais leitura.
  */
 export function Testimonials({ items, dragHint }: { items: readonly Item[]; dragHint: string }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
 
   const scrollTo = (index: number) => {
     const track = trackRef.current;
@@ -24,21 +23,9 @@ export function Testimonials({ items, dragHint }: { items: readonly Item[]; drag
     const child = track.children[index] as HTMLElement | undefined;
     if (!child) return;
     track.scrollTo({ left: child.offsetLeft - track.offsetLeft, behavior: "smooth" });
+    setActive(index);
   };
 
-  useEffect(() => {
-    if (paused) return;
-    const id = window.setInterval(() => {
-      setActive((prev) => {
-        const next = (prev + 1) % items.length;
-        scrollTo(next);
-        return next;
-      });
-    }, 6000);
-    return () => window.clearInterval(id);
-  }, [items.length, paused]);
-
-  // Mantém as bolinhas em sincronia quando a visitante arrasta na mão
   const onScroll = () => {
     const track = trackRef.current;
     if (!track) return;
@@ -57,85 +44,62 @@ export function Testimonials({ items, dragHint }: { items: readonly Item[]; drag
   };
 
   return (
-    <div
-      className="w-full"
-      onPointerDown={() => setPaused(true)}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
+    <div className="w-full">
       <div
         ref={trackRef}
         onScroll={onScroll}
-        className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="-mx-[18px] flex snap-x snap-mandatory gap-3 overflow-x-auto px-[18px] pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {items.map((t, i) => (
-          <figure
-            key={t.name}
-            className={cn(
-              "surface-ritual relative w-[85%] shrink-0 snap-center rounded-2xl border border-primary/20 p-6 transition-all duration-500 sm:w-[46%] lg:w-[31%]",
-              active === i ? "opacity-100" : "opacity-70",
-            )}
-          >
-            <div
-              className="mb-3 flex items-center gap-1 text-primary"
-              aria-label="5 de 5 estrellas"
-            >
-              {Array.from({ length: 5 }).map((_, s) => (
-                <svg
-                  key={s}
-                  viewBox="0 0 24 24"
-                  className="h-3.5 w-3.5"
-                  fill="currentColor"
-                  aria-hidden
-                >
-                  <path d="m12 2.6 2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.7l-5.9 3.1 1.2-6.6-4.8-4.6 6.6-.9Z" />
-                </svg>
-              ))}
-              <span className="ml-2 rounded-full border border-primary/25 px-2 py-0.5 text-[9px] uppercase tracking-[0.15em] text-primary/80">
+        {items.map((t) => (
+          <figure key={t.name} className="panel w-[86%] shrink-0 snap-center p-5 sm:w-[62%]">
+            <div className="mb-2 flex items-center gap-1.5">
+              <span className="flex text-gold" aria-label="5 de 5 estrellas">
+                {Array.from({ length: 5 }).map((_, s) => (
+                  <svg
+                    key={s}
+                    viewBox="0 0 24 24"
+                    className="h-3 w-3"
+                    fill="currentColor"
+                    aria-hidden
+                  >
+                    <path d="m12 2.6 2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.7l-5.9 3.1 1.2-6.6-4.8-4.6 6.6-.9Z" />
+                  </svg>
+                ))}
+              </span>
+              <span className="text-[9px] uppercase tracking-[0.12em] text-rose">
                 Clienta verificada
               </span>
             </div>
 
             <blockquote>
               <p className="font-display text-lg leading-snug text-foreground">“{t.title}”</p>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.text}</p>
+              <p className="mt-1.5 text-[0.86rem] leading-relaxed text-muted-foreground">
+                {t.text}
+              </p>
             </blockquote>
 
-            <figcaption className="mt-5 flex items-center gap-3 border-t border-primary/15 pt-4">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-primary/30 font-display text-sm text-primary">
-                {t.name.charAt(0)}
-              </span>
-              <span className="text-xs text-muted-foreground">
-                <strong className="block font-medium text-foreground">{t.name}</strong>
-                {t.city}
-              </span>
+            <figcaption className="mt-4 border-t border-border pt-3 text-[11px] text-muted-foreground">
+              <strong className="font-medium text-foreground">{t.name}</strong> · {t.city}
             </figcaption>
           </figure>
         ))}
       </div>
 
-      <div className="mt-2 flex items-center justify-center gap-4">
-        <div className="flex gap-1.5">
-          {items.map((t, i) => (
-            <button
-              key={t.name}
-              type="button"
-              aria-label={`Ver testimonio ${i + 1}`}
-              onClick={() => {
-                setActive(i);
-                scrollTo(i);
-              }}
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-500",
-                active === i
-                  ? "w-7 bg-[image:var(--gradient-gold)]"
-                  : "w-1.5 bg-primary/30 hover:bg-primary/60",
-              )}
-            />
-          ))}
-        </div>
+      <div className="mt-1 flex justify-center gap-1.5">
+        {items.map((t, i) => (
+          <button
+            key={t.name}
+            type="button"
+            aria-label={`Ver testimonio ${i + 1}`}
+            onClick={() => scrollTo(i)}
+            className={cn(
+              "h-1.5 rounded-full transition-all duration-300",
+              active === i ? "w-6 bg-gold" : "w-1.5 bg-border hover:bg-gold/60",
+            )}
+          />
+        ))}
       </div>
-      <p className="mt-2 text-center text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
+      <p className="mt-2 text-center text-[10px] uppercase tracking-[0.16em] text-muted-foreground/70">
         {dragHint}
       </p>
     </div>

@@ -122,9 +122,9 @@ function OrderForm() {
 
   return (
     <main className="relative min-h-[100svh] px-5 py-10 sm:py-14">
-      <StarField count={60} />
+      <StarField count={30} />
 
-      <div className="mx-auto w-full max-w-xl">
+      <div className="mx-auto w-full max-w-[620px]">
         {/* Cabeçalho */}
         <header className="mb-8 text-center">
           <Link to="/" className="inline-block">
@@ -168,7 +168,7 @@ function OrderForm() {
         </div>
 
         {/* Card do passo */}
-        <div key={step} className="frame-ritual animate-rise-fade rounded-3xl p-6 sm:p-9">
+        <div key={step} className="panel animate-rise-fade p-6 sm:p-8">
           {step === 0 && (
             <StepShell
               title={FORM_COPY.steps.name.title}
@@ -385,9 +385,7 @@ function OrderForm() {
               </div>
 
               <div className="mt-7">
-                <GoldButton full onClick={confirm}>
-                  {FORM_COPY.review.cta}
-                </GoldButton>
+                <GoldButton onClick={confirm}>{FORM_COPY.review.cta}</GoldButton>
               </div>
 
               <p className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">
@@ -423,7 +421,7 @@ function OrderForm() {
               )}
               {step !== 2 && (
                 <div className="flex-1">
-                  <GoldButton full size="md" onClick={validateAndNext}>
+                  <GoldButton onClick={validateAndNext}>
                     {step === 4 ? FORM_COPY.steps.delivery.review : FORM_COPY.header.next}
                   </GoldButton>
                 </div>
