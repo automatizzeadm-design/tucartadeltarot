@@ -242,6 +242,37 @@ export const COUNTRIES: CountryOffer[] = [
 
 export const DEFAULT_COUNTRY: CountryOffer = COUNTRIES[0]!;
 
+/**
+ * Meios de pagamento citados na página, por país.
+ * Na LATAM isso é fator de conversão: muita gente não tem cartão internacional
+ * e desiste se não vê o meio local (OXXO, PSE, Yape, Mercado Pago...).
+ * Só citar o que o checkout realmente aceitar.
+ */
+const PAYMENTS_DEFAULT = "tarjeta de crédito o débito · Mercado Pago · transferencia";
+
+const PAYMENTS_BY_COUNTRY: Partial<Record<CountryCode, string>> = {
+  MX: "tarjeta · Mercado Pago · OXXO · SPEI",
+  CO: "tarjeta · PSE · Nequi · Efecty",
+  PE: "tarjeta · Yape · Plin · PagoEfectivo",
+  CL: "tarjeta · Webpay · Mercado Pago · transferencia",
+  AR: "tarjeta · Mercado Pago · Rapipago · Pago Fácil",
+  EC: "tarjeta · transferencia · Payphone",
+  UY: "tarjeta · Mercado Pago · Abitab · RedPagos",
+  PY: "tarjeta · transferencia · Tigo Money",
+  BO: "tarjeta · transferencia · QR simple",
+  VE: "tarjeta internacional · Zelle · Binance Pay",
+  CR: "tarjeta · SINPE Móvil · transferencia",
+  PA: "tarjeta · Yappy · transferencia",
+  GT: "tarjeta · transferencia bancaria",
+  DO: "tarjeta · transferencia bancaria",
+  US: "tarjeta de crédito o débito · PayPal · Apple Pay",
+  ES: "tarjeta · Bizum · PayPal",
+};
+
+export function paymentsFor(code: CountryCode): string {
+  return PAYMENTS_BY_COUNTRY[code] ?? PAYMENTS_DEFAULT;
+}
+
 /** Fuso horário do navegador → país. Cobre as capitais/zonas mais usadas da LATAM. */
 const TIMEZONE_MAP: Record<string, CountryCode> = {
   "America/Mexico_City": "MX",

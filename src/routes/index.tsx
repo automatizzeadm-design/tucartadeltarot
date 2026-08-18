@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/accordion";
 
 import { COPY } from "@/data/copy";
-import { detectCountry, DEFAULT_COUNTRY, type CountryOffer } from "@/data/offer";
+import { detectCountry, DEFAULT_COUNTRY, paymentsFor, type CountryOffer } from "@/data/offer";
 import { Reveal } from "@/components/Reveal";
 import { StarField } from "@/components/StarField";
 import { TarotCard } from "@/components/TarotCard";
@@ -545,6 +545,19 @@ function Offer({ country }: { country: CountryOffer }) {
           </span>
           {COPY.offer.guaranteeStrip}
         </p>
+
+        {/* Meios de pagamento locais — na LATAM é o que destrava quem não tem cartão internacional */}
+        <div className="mt-5 rounded-xl border border-border px-4 py-3">
+          <p className="text-[10px] uppercase tracking-[0.16em] text-gold/70">
+            {COPY.offer.paymentsLabel}
+          </p>
+          <p className="mt-1.5 text-[0.82rem] leading-relaxed text-foreground/90">
+            {COPY.offer.paymentsText.replace("{payments}", paymentsFor(country.code))}
+          </p>
+          <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
+            {COPY.offer.paymentsNote}
+          </p>
+        </div>
       </div>
     </Section>
   );

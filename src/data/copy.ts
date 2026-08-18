@@ -125,7 +125,7 @@ export const COPY = {
   deliverables: {
     eyebrow: "Dentro de 60 minutos puede ser así",
     title: "Mira exactamente lo que va a llegar a tu WhatsApp o a tu correo",
-    lead: "La lees y sientes que el nudo del pecho se afloja. Lo que tu intuición te susurraba se vuelve respuesta, blanco sobre negro. Y el volante de la historia vuelve a tus manos.",
+    lead: "La lees y sientes que el nudo del pecho se afloja. Lo que tu intuición te susurraba queda por fin negro sobre blanco. Y las riendas de tu historia vuelven a tus manos.",
     items: [
       {
         icon: "letter",
@@ -151,7 +151,8 @@ export const COPY = {
     title: "Quién se va a sentar a escribir tu carta",
     paragraphs: [
       "Mucho gusto, soy Yeda Serena. Soy tarotista desde hace más de 16 años. No es un pasatiempo: es mi vida.",
-      "En estos 16 años, más de 7.000 mujeres han pasado por mis manos, entre consultas y cursos en Brasil, Europa y Estados Unidos. De ellas, más de 4.500 ya pidieron su Carta Canalizada. Cada una pasa por mí, una por una. Siento tu caso antes de escribir la primera palabra: por eso la carta toca exactamente donde tiene que tocar.",
+      "En estos 16 años, más de 7.000 mujeres han pasado por mis manos, entre consultas y cursos en América Latina, Europa y Estados Unidos. De ellas, más de 4.500 ya pidieron su Carta Canalizada. Cada una pasa por mí, una por una. Siento tu caso antes de escribir la primera palabra: por eso la carta toca exactamente donde tiene que tocar.",
+      "Y no, no importa desde qué país me escribas. El orgullo de un hombre callado se lee igual en Ciudad de México, en Bogotá, en Lima o en Buenos Aires.",
     ],
     stats: [
       { value: "+7.000", label: "mujeres atendidas" },
@@ -181,9 +182,11 @@ export const COPY = {
   testimonials: {
     eyebrow: "+4.500 mujeres ya pidieron la suya",
     title: "Estaban acostadas mirando el techo igual que tú, hasta que llegó la respuesta",
-    lead: "Mensajes reales, de mujeres reales, el día en que por fin dejaron de imaginar y pasaron a saber.",
-    // NOTA: testimonios reales de clientas, traducidos del portugués.
-    note: "Testimonios reales de clientas, traducidos del portugués.",
+    lead: "Mensajes reales, de mujeres reales, el día en que por fin dejaron de imaginar y pasaron a saber. El dolor de no saber es el mismo en cualquier idioma.",
+    // IMPORTANTE: testimonios REALES de clientas de Brasil, traducidos.
+    // No sustituir por nombres/ciudades de LATAM inventados: sería prueba social falsa.
+    // Cuando haya clientas hispanohablantes con permiso de uso, se agregan aquí.
+    note: "Testimonios reales de clientas, traducidos del portugués con su autorización.",
     items: [
       {
         name: "Camila S.",
@@ -246,6 +249,10 @@ export const COPY = {
     cta: "Quiero mi carta hoy",
     ctaSub: "Antes de que se cierren los cupos de hoy",
     guaranteeStrip: "Pago único · Garantía incondicional de 7 días",
+    /* Meios de pagamento locais — {payments} vem de offer.ts, por país. */
+    paymentsLabel: "Pagas en tu moneda, a tu manera",
+    paymentsText: "{payments}",
+    paymentsNote: "Sin cargos por conversión sorpresa. El precio que ves es el que pagas.",
   },
 
   /* ---------------- DOS FUTUROS ---------------- */
@@ -324,6 +331,10 @@ export const COPY = {
       {
         q: "¿Funciona aunque él haya desaparecido hace mucho o ya esté con otra?",
         a: "Funciona. El campo energético entre ustedes no desaparece porque el calendario haya avanzado. Incluso con distancia, con una pelea fea o con otra persona en el medio, puedo acceder a lo que él siente por debajo de todo eso. Justamente porque la Voz Oculta del Amor no habla fuerte, pero nunca se va. Y a veces ahí está la respuesta que necesitabas.",
+      },
+      {
+        q: "¿Cómo puedo pagar si no tengo tarjeta internacional?",
+        a: "No la necesitas. Pagas en la moneda de tu país y con los medios que ya usas todos los días: tarjeta, transferencia y los métodos locales de donde estás (Mercado Pago, OXXO, PSE, Nequi, Yape, SINPE y otros, según el país). El precio que ves en la página es el que pagas, sin sorpresas de conversión al final.",
       },
       {
         q: "¿Desde qué países puedo pedirla?",
