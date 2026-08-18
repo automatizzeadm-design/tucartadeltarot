@@ -249,6 +249,14 @@ export const COPY = {
     cta: "Quiero mi carta hoy",
     ctaSub: "Antes de que se cierren los cupos de hoy",
     guaranteeStrip: "Pago único · Garantía incondicional de 7 días",
+    /* Carta lacrada acima do preço — o cadeado abre e leva pro formulário. */
+    lockedCard: {
+      eyebrow: "Tu carta ya está aquí. Solo falta abrirla.",
+      label: "Desbloquea tu carta",
+      sublabel:
+        "Tu respuesta ya existe: está esperando del otro lado de este candado. Toca la carta y la tienes hoy mismo.",
+    },
+
     /* Meios de pagamento locais — {payments} vem de offer.ts, por país. */
     paymentsLabel: "Pagas en tu moneda, a tu manera",
     paymentsText: "{payments}",

@@ -326,6 +326,53 @@
   }
 }
 
+/* Cadeado da oferta: treme de leve, como se pedisse pra ser aberto */
+@keyframes lock-rattle {
+  0%,
+  62%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  66% {
+    transform: rotate(-6deg) translateY(-1px);
+  }
+  70% {
+    transform: rotate(5deg) translateY(0);
+  }
+  74% {
+    transform: rotate(-4deg) translateY(-1px);
+  }
+  78% {
+    transform: rotate(3deg) translateY(0);
+  }
+  82% {
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+/* O arco pula ao destravar */
+@keyframes lock-pop {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+  35% {
+    transform: scale(1.14) translateY(-4px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Véu escuro que some quando a carta é liberada */
+@keyframes veil-lift {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 @utility animate-twinkle {
   animation: twinkle 4s ease-in-out infinite;
 }
@@ -360,6 +407,27 @@
 
 @utility animate-pulse-ring {
   animation: pulse-ring 2.6s ease-out infinite;
+}
+
+@utility animate-lock-rattle {
+  animation: lock-rattle 4.5s ease-in-out infinite;
+}
+
+@utility animate-lock-pop {
+  animation: lock-pop 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@utility animate-veil-lift {
+  animation: veil-lift 700ms ease-out both;
+}
+
+/* Quem pediu menos movimento no sistema não leva firula nenhuma */
+@media (prefers-reduced-motion: reduce) {
+  .animate-lock-rattle,
+  .animate-lock-pop,
+  .animate-veil-lift {
+    animation: none;
+  }
 }
 
 /* Moldura de pergaminho usada nos blocos de oferta e garantia */

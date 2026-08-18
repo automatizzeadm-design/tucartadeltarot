@@ -15,7 +15,9 @@ type GlyphName =
   | "key"
   | "hand"
   | "shield"
-  | "chalice";
+  | "chalice"
+  | "lock"
+  | "lock-open";
 
 export function Glyph({ name, className = "h-7 w-7" }: { name: GlyphName; className?: string }) {
   const common = {
@@ -118,6 +120,26 @@ export function Glyph({ name, className = "h-7 w-7" }: { name: GlyphName; classN
         <svg {...common}>
           <path d="M13 8h22l-2 10a9 9 0 0 1-18 0Z" />
           <path d="M24 27v11M16 40h16" />
+        </svg>
+      );
+    case "lock":
+      return (
+        <svg {...common}>
+          {/* arco fechado */}
+          <path d="M16 22v-6a8 8 0 0 1 16 0v6" />
+          <rect x="10" y="22" width="28" height="20" rx="4" />
+          <circle cx="24" cy="30" r="2.6" />
+          <path d="M24 32.6V36" />
+        </svg>
+      );
+    case "lock-open":
+      return (
+        <svg {...common}>
+          {/* arco erguido e girado — o cadeado abriu */}
+          <path d="M16 22v-6a8 8 0 0 1 15.4-3" />
+          <rect x="10" y="22" width="28" height="20" rx="4" />
+          <circle cx="24" cy="30" r="2.6" />
+          <path d="M24 32.6V36" />
         </svg>
       );
     default:

@@ -15,6 +15,7 @@ import { TarotCard } from "@/components/TarotCard";
 import { GoldButton } from "@/components/GoldButton";
 import { Countdown, SlotsMeter } from "@/components/Countdown";
 import { Testimonials } from "@/components/Testimonials";
+import { LockedCard } from "@/components/LockedCard";
 import { StickyCta } from "@/components/StickyCta";
 import { Glyph, Divider } from "@/components/Glyph";
 
@@ -522,6 +523,14 @@ function Offer({ country }: { country: CountryOffer }) {
             </li>
           ))}
         </ul>
+
+        {/* Carta lacrada — o cadeado abre e leva pro formulário */}
+        <LockedCard
+          className="mt-8"
+          eyebrow={COPY.offer.lockedCard.eyebrow}
+          label={COPY.offer.lockedCard.label}
+          sublabel={COPY.offer.lockedCard.sublabel}
+        />
 
         <div className="mt-7">
           <p className="text-lg text-muted-foreground line-through">{country.from}</p>
