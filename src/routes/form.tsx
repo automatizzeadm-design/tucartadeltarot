@@ -7,6 +7,7 @@ import {
   DEFAULT_COUNTRY,
   detectCountry,
   ORDER_WHATSAPP,
+  slotsLeftToday,
   type CountryOffer,
 } from "@/data/offer";
 import { StarField } from "@/components/StarField";
@@ -48,11 +49,31 @@ const EMPTY: OrderData = {
 const TOTAL_STEPS = 5;
 const STORAGE_KEY = "carta-canalizada-pedido";
 
+/** Quanto tempo a reação da Yeda fica na tela antes de avançar sozinha */
+const REACTION_MS = 1700;
+/** Cada linha da tiragem */
+const READING_LINE_MS = 1150;
+
+/**
+ * Troca {name} e {target} pelos nomes que ela digitou.
+ * Se ainda não digitou, cai num neutro em vez de deixar a chave crua na tela.
+ */
+function fill(text: string, data: { name?: string; target?: string }) {
+  return text
+    .replace(/\{name\}/g, data.name?.trim() || "Tú")
+    .replace(/\{target\}/g, data.target?.trim() || "él");
+}
+
 function OrderForm() {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<OrderData>(EMPTY);
   const [error, setError] = useState("");
   const [country, setCountry] = useState<CountryOffer>(DEFAULT_COUNTRY);
+  /** Resposta da Yeda à situação escolhida, visível antes de avançar */
+  const [reaction, setReaction] = useState("");
+  /** Índice da linha da tiragem; -1 = não está tirando as cartas */
+  const [readingLine, setReadingLine] = useState(-1);
+  const [slots, setSlots] = useState<number | null>(null);
 
   // País pelo fuso + pedido salvo (se ela saiu e voltou, não perde o que escreveu)
   useEffect(() => {
@@ -82,8 +103,31 @@ function OrderForm() {
 
   useEffect(() => {
     setError("");
+    setReaction("");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [step]);
+
+  useEffect(() => {
+    setSlots(slotsLeftToday());
+  }, []);
+
+  // Tiragem das cartas: as linhas passam uma a uma e, na última, abre a revisão
+  useEffect(() => {
+    if (readingLine < 0) return;
+    const isLast = readingLine >= FORM_COPY.reading.lines.length - 1;
+    const timer = window.setTimeout(
+      () => {
+        if (isLast) {
+          setReadingLine(-1);
+          setStep(TOTAL_STEPS);
+        } else {
+          setReadingLine((l) => l + 1);
+        }
+      },
+      isLast ? READING_LINE_MS + 350 : READING_LINE_MS,
+    );
+    return () => window.clearTimeout(timer);
+  }, [readingLine]);
 
   const set = (key: keyof OrderData, value: string) => setData((d) => ({ ...d, [key]: value }));
 
@@ -96,6 +140,8 @@ function OrderForm() {
     if (step === 1 && !data.target.trim()) return setError(s.target.error);
     if (step === 3 && !data.question.trim()) return setError(s.question.error);
     if (step === 4 && (!data.channel || !data.contact.trim())) return setError(s.delivery.error);
+    // Depois da última resposta ela vê a tiragem acontecer, e só então o preço
+    if (step === 4) return setReadingLine(0);
     goNext();
   };
 
@@ -124,6 +170,32 @@ function OrderForm() {
     <main className="relative min-h-[100svh] px-5 py-10 sm:py-14">
       <StarField />
 
+      {/* Tiragem: a landing promete que ela "abre o Tarot e acessa o campo".
+          Aqui é onde a visitante finalmente vê isso acontecer — e o preço só
+          aparece depois do trabalho, nunca antes dele. */}
+      {readingLine >= 0 && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/95 px-8 backdrop-blur-sm"
+          role="status"
+          aria-live="polite"
+        >
+          <span className="relative flex h-24 w-24 items-center justify-center">
+            <span className="absolute inset-0 animate-orbit-spin rounded-full border border-dashed border-primary/40" />
+            <span className="absolute inset-0 animate-pulse-ring rounded-full border border-primary/30" />
+            <span className="text-primary animate-shimmer-glow">
+              <Glyph name="moon" className="h-10 w-10" />
+            </span>
+          </span>
+
+          <p
+            key={readingLine}
+            className="mt-8 max-w-[22rem] animate-rise-fade text-balance text-center font-display text-2xl leading-snug text-foreground"
+          >
+            {fill(FORM_COPY.reading.lines[readingLine] ?? "", data)}
+          </p>
+        </div>
+      )}
+
       <div className="mx-auto w-full max-w-[620px]">
         {/* Cabeçalho */}
         <header className="mb-8 text-center">
@@ -133,6 +205,15 @@ function OrderForm() {
               {FORM_COPY.header.author}
             </p>
           </Link>
+
+          {/* A escassez existia na landing e sumia justo aqui, na tela de
+              maior intenção. Só aparece depois de montar, pra não divergir
+              entre servidor e navegador. */}
+          {slots !== null && (
+            <p className="mt-4 inline-block rounded-full border border-primary/25 px-3.5 py-1.5 text-[10px] uppercase tracking-[0.16em] text-primary/80">
+              {FORM_COPY.scarcity.slots.replace("{n}", String(slots))}
+            </p>
+          )}
         </header>
 
         {/* Progresso ritual: 5 cartinhas que acendem */}
@@ -205,7 +286,7 @@ function OrderForm() {
 
           {step === 2 && (
             <StepShell
-              title={FORM_COPY.steps.situation.title}
+              title={fill(FORM_COPY.steps.situation.title, data)}
               subtitle={FORM_COPY.steps.situation.subtitle}
               glyph="hourglass"
             >
@@ -214,15 +295,20 @@ function OrderForm() {
                   <button
                     key={opt.value}
                     type="button"
+                    disabled={!!reaction}
                     onClick={() => {
                       set("situation", opt.value);
-                      window.setTimeout(goNext, 220);
+                      // A Yeda responde antes de avançar — é o primeiro
+                      // momento do quiz em que ela recebe algo de volta
+                      setReaction(opt.reaction);
+                      window.setTimeout(goNext, REACTION_MS);
                     }}
                     className={cn(
                       "group flex items-center gap-3 rounded-2xl border px-4 py-4 text-left transition-all duration-300",
                       data.situation === opt.value
                         ? "border-primary bg-primary/10"
                         : "border-primary/20 bg-card/60 hover:-translate-y-0.5 hover:border-primary/50",
+                      reaction && data.situation !== opt.value && "opacity-40",
                     )}
                   >
                     <span className="text-xl">{opt.icon}</span>
@@ -236,12 +322,21 @@ function OrderForm() {
                   </button>
                 ))}
               </div>
+
+              {reaction && (
+                <p
+                  className="mt-5 animate-rise-fade border-l-2 border-primary/50 pl-4 text-left font-display text-lg italic leading-relaxed text-foreground"
+                  aria-live="polite"
+                >
+                  {reaction}
+                </p>
+              )}
             </StepShell>
           )}
 
           {step === 3 && (
             <StepShell
-              title={FORM_COPY.steps.question.title}
+              title={fill(FORM_COPY.steps.question.title, data)}
               subtitle={FORM_COPY.steps.question.subtitle}
               glyph="orb"
             >
@@ -253,6 +348,29 @@ function OrderForm() {
                 autoFocus
                 className="w-full resize-none rounded-2xl border border-input bg-background/60 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-ring"
               />
+
+              {/* Campo livre é onde mais se abandona. Um toque preenche,
+                  e ela segue podendo editar o texto do jeito dela. */}
+              <p className="mt-4 text-center text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                {FORM_COPY.steps.question.chipsLabel}
+              </p>
+              <div className="mt-3 flex flex-wrap justify-center gap-2">
+                {FORM_COPY.steps.question.chips.map((chip) => (
+                  <button
+                    key={chip}
+                    type="button"
+                    onClick={() => set("question", chip)}
+                    className={cn(
+                      "rounded-full border px-3.5 py-2 text-[0.78rem] transition-all duration-200",
+                      data.question === chip
+                        ? "border-primary bg-primary/10 text-foreground"
+                        : "border-primary/20 bg-card/60 text-muted-foreground hover:border-primary/50 hover:text-foreground",
+                    )}
+                  >
+                    {chip}
+                  </button>
+                ))}
+              </div>
             </StepShell>
           )}
 
@@ -332,7 +450,9 @@ function OrderForm() {
                 <span className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-primary/40 text-primary animate-shimmer-glow">
                   <Glyph name="chalice" className="h-7 w-7" />
                 </span>
-                <h1 className="font-display text-2xl text-foreground">{FORM_COPY.review.title}</h1>
+                <h1 className="text-balance font-display text-2xl text-foreground">
+                  {fill(FORM_COPY.review.title, data)}
+                </h1>
                 <p className="mt-2 text-sm text-muted-foreground">{FORM_COPY.review.text}</p>
               </div>
 
@@ -368,8 +488,29 @@ function OrderForm() {
                 {FORM_COPY.review.editHint}
               </p>
 
+              {/* Oferta reafirmada na hora da decisão — antes o preço
+                  aparecia sozinho e ela tinha que lembrar do que levava */}
+              <div className="mt-7 rounded-2xl border border-primary/20 bg-card/40 p-5">
+                <p className="text-center text-[10px] uppercase tracking-[0.18em] text-primary/80">
+                  {FORM_COPY.review.stackTitle}
+                </p>
+                <ul className="mt-3 grid gap-2">
+                  {FORM_COPY.review.stack.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2.5 text-[0.86rem] leading-relaxed text-foreground/90"
+                    >
+                      <span className="mt-0.5 shrink-0 text-primary" aria-hidden>
+                        ✦
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               {/* Preço */}
-              <div className="mt-7 rounded-2xl border border-primary/30 bg-background/50 p-6 text-center">
+              <div className="mt-4 rounded-2xl border border-primary/30 bg-background/50 p-6 text-center">
                 <div className="flex items-end justify-center gap-3">
                   <span className="relative font-display text-xl text-muted-foreground/70">
                     {country.from}
@@ -394,8 +535,8 @@ function OrderForm() {
                 </span>
                 {FORM_COPY.review.secure}
               </p>
-              <p className="mt-2 text-center text-[11px] text-muted-foreground/60">
-                {FORM_COPY.review.bumpNote}
+              <p className="mx-auto mt-3 max-w-[26rem] text-center text-[11px] leading-relaxed text-muted-foreground/70">
+                {FORM_COPY.review.guaranteeNote}
               </p>
             </div>
           )}

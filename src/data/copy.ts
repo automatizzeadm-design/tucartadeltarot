@@ -407,20 +407,56 @@ export const FORM_COPY = {
       error: "Escribe su nombre para continuar",
     },
     situation: {
-      title: "¿Cómo están ustedes hoy?",
+      /* {target} = nome dele, preenchido em tempo de execução */
+      title: "¿Cómo están tú y {target} hoy?",
       subtitle: "Elige lo que más se parece a lo que estás viviendo.",
+      /* `reaction`: a Yeda responde à escolha dela antes de seguir.
+         É a primeira vez no quiz em que ela recebe algo em vez de só entregar. */
       options: [
-        { icon: "💔", value: "Terminamos hace poco" },
-        { icon: "🌫️", value: "Se alejó o desapareció" },
-        { icon: "⚡", value: "Estamos peleados" },
-        { icon: "❓", value: "No sé lo que siente" },
-        { icon: "🔗", value: "Juntos, pero distantes" },
+        {
+          icon: "💔",
+          value: "Terminamos hace poco",
+          reaction:
+            "Una ruptura reciente deja el campo todavía abierto. Es justo cuando la carta llega más nítida.",
+        },
+        {
+          icon: "🌫️",
+          value: "Se alejó o desapareció",
+          reaction:
+            "El silencio es lo que más me llega. Y casi nunca significa lo que tú estás temiendo.",
+        },
+        {
+          icon: "⚡",
+          value: "Estamos peleados",
+          reaction:
+            "Después de una pelea, lo que él dice y lo que él siente casi nunca son la misma cosa.",
+        },
+        {
+          icon: "❓",
+          value: "No sé lo que siente",
+          reaction: "Esa es exactamente la pregunta que la Carta Canalizada vino a responder.",
+        },
+        {
+          icon: "🔗",
+          value: "Juntos, pero distantes",
+          reaction: "Esa distancia duele distinto: él está presente, y aun así no está contigo.",
+        },
       ],
     },
     question: {
-      title: "¿Cuál es la pregunta de tu corazón?",
-      subtitle: "El Tarot va a responderla directamente. Sé sincera.",
-      placeholder: "Ej: ¿Todavía piensa en mí? ¿Vale la pena insistir?",
+      title: "¿Qué es lo que necesitas saber sobre {target}?",
+      subtitle: "El Tarot va a responder esta pregunta directamente. Sé sincera: aquí nadie te juzga.",
+      placeholder: "Escríbelo con tus palabras, como lo sientes",
+      /* Atalhos: o campo livre é o ponto de maior abandono do quiz.
+         Um toque preenche e ela sigue podendo editar. */
+      chipsLabel: "O toca la que más se parece a la tuya",
+      chips: [
+        "¿Todavía piensa en mí?",
+        "¿Hay alguien más?",
+        "¿Va a volver a buscarme?",
+        "¿Vale la pena seguir esperando?",
+        "¿Qué siente de verdad por mí?",
+      ],
       error: "Escribe tu pregunta para continuar",
     },
     delivery: {
@@ -439,10 +475,23 @@ export const FORM_COPY = {
       review: "Revisar mi pedido",
     },
   },
+  /* Ritual entre a última resposta e o preço.
+     A landing promete "abro el Tarot y accedo al campo energético" — aqui é
+     onde ela finalmente VÊ isso acontecer. O preço chega depois do trabalho,
+     não antes. */
+  reading: {
+    lines: [
+      "Abriendo las cartas para tu caso…",
+      "Conectando con la energía de {target}…",
+      "Escuchando lo que él calla…",
+      "Tu tirada está lista.",
+    ],
+  },
+
   review: {
-    title: "Tu pedido de lectura",
+    title: "{name}, tu tirada ya está armada",
     subtitle: "Solo falta confirmar",
-    text: "En cuanto confirmes, abro las cartas, escribo tu carta con todo el cuidado y te la envío donde elegiste en hasta 60 minutos.",
+    text: "En cuanto confirmes, me siento a escribir tu carta con todo el cuidado y te llega donde elegiste, en hasta 60 minutos.",
     labels: {
       name: "Tu nombre",
       target: "Sobre",
@@ -450,10 +499,25 @@ export const FORM_COPY = {
       question: "Tu pregunta",
       delivery: "Entrega",
     },
+    /* A oferta é reafirmada na hora da decisão. Antes o preço aparecia sozinho
+       e ela tinha que lembrar do que estava levando. */
+    stackTitle: "Lo que recibes en hasta 60 minutos",
+    stack: [
+      "Tu Carta Canalizada, escrita a mano como si fuera él hablándote",
+      "La respuesta directa a tu pregunta por el Tarot",
+      "Mi consejo para tu siguiente paso, de mujer a mujer",
+    ],
     paymentNote: "pago único · entrega en hasta 60 min",
     cta: "Confirmar y recibir mi carta",
     secure: "Pago seguro · Garantía de 7 días",
-    bumpNote: "En el siguiente paso puedes agregar extras a tu lectura.",
+    guaranteeNote:
+      "Si la lees y sientes que no era para ti, me escribes en 7 días y te devuelvo cada centavo. El riesgo es mío.",
     editHint: "Toca cualquier dato para corregirlo",
+  },
+
+  /* Escassez trazida da landing pro quiz — a superfície de maior intenção
+     era justamente a única sem nenhuma urgência. */
+  scarcity: {
+    slots: "Quedan {n} lecturas para hoy",
   },
 } as const;
