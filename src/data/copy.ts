@@ -484,14 +484,14 @@ export const FORM_COPY = {
       "Abriendo las cartas para tu caso…",
       "Conectando con la energía de {target}…",
       "Escuchando lo que él calla…",
-      "Tu tirada está lista.",
+      "Tu carta ya está siendo preparada…",
     ],
   },
 
   review: {
-    title: "{name}, tu tirada ya está armada",
+    title: "{name}, tu carta ya está siendo preparada",
     subtitle: "Solo falta confirmar",
-    text: "En cuanto confirmes, me siento a escribir tu carta con todo el cuidado y te llega donde elegiste, en hasta 60 minutos.",
+    text: "Recibirás tu carta en apenas unos minutos. Finaliza el proceso y descubre la respuesta que tanto esperas.",
     labels: {
       name: "Tu nombre",
       target: "Sobre",
