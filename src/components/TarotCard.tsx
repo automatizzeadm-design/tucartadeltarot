@@ -87,7 +87,7 @@ export function TarotCard({
       >
         {/* VERSO */}
         <div className="absolute inset-0 overflow-hidden rounded-2xl border border-primary/30 bg-card [backface-visibility:hidden] shadow-[var(--shadow-card)]">
-          <div className="absolute inset-0 bg-[linear-gradient(150deg,oklch(0.24_0.06_275)_0%,oklch(0.16_0.05_268)_55%,oklch(0.22_0.06_282)_100%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(150deg,oklch(0.19_0.05_275)_0%,oklch(0.125_0.036_268)_55%,oklch(0.17_0.045_282)_100%)]" />
           <div className="absolute inset-[6px] rounded-xl border border-primary/25" />
           <div className="absolute inset-[11px] rounded-lg border border-primary/10" />
 
@@ -121,7 +121,7 @@ export function TarotCard({
           </div>
 
           {/* brilho que atravessa a carta */}
-          <div className="pointer-events-none absolute inset-0 animate-card-sheen bg-[linear-gradient(105deg,transparent_35%,oklch(0.95_0.08_90/0.14)_50%,transparent_65%)]" />
+          <div className="pointer-events-none absolute inset-0 animate-card-sheen bg-[linear-gradient(105deg,transparent_35%,oklch(0.95_0.08_90/0.07)_50%,transparent_65%)]" />
 
           {hint && !flipped && (
             <div className="absolute inset-x-0 top-4 text-center">

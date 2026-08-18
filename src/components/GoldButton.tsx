@@ -41,7 +41,7 @@ export function GoldButton({
 
   const inner = (
     <>
-      <span className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-sheen bg-[linear-gradient(100deg,transparent_25%,oklch(1_0_0/0.45)_50%,transparent_75%)]" />
+      <span className="pointer-events-none absolute inset-0 -translate-x-full animate-cta-sheen bg-[linear-gradient(100deg,transparent_25%,oklch(1_0_0/0.2)_50%,transparent_75%)]" />
       <span className="relative">{children}</span>
     </>
   );

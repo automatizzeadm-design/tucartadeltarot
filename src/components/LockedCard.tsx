@@ -76,7 +76,7 @@ export function LockedCard({
         )}
       >
         {/* verso da carta */}
-        <span className="absolute inset-0 bg-[linear-gradient(150deg,oklch(0.24_0.06_275)_0%,oklch(0.16_0.05_268)_55%,oklch(0.22_0.06_282)_100%)]" />
+        <span className="absolute inset-0 bg-[linear-gradient(150deg,oklch(0.19_0.05_275)_0%,oklch(0.125_0.036_268)_55%,oklch(0.17_0.045_282)_100%)]" />
         <span className="absolute inset-[6px] rounded-xl border border-primary/25" />
         <span className="absolute inset-[11px] rounded-lg border border-primary/10" />
 
@@ -133,7 +133,7 @@ export function LockedCard({
         </span>
 
         {/* brilho que atravessa a carta */}
-        <span className="pointer-events-none absolute inset-0 animate-card-sheen bg-[linear-gradient(105deg,transparent_35%,oklch(0.95_0.08_90/0.14)_50%,transparent_65%)]" />
+        <span className="pointer-events-none absolute inset-0 animate-card-sheen bg-[linear-gradient(105deg,transparent_35%,oklch(0.95_0.08_90/0.07)_50%,transparent_65%)]" />
       </Link>
 
       {sublabel && (

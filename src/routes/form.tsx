@@ -122,7 +122,7 @@ function OrderForm() {
 
   return (
     <main className="relative min-h-[100svh] px-5 py-10 sm:py-14">
-      <StarField count={30} />
+      <StarField />
 
       <div className="mx-auto w-full max-w-[620px]">
         {/* Cabeçalho */}
