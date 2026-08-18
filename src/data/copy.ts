@@ -510,8 +510,7 @@ export const FORM_COPY = {
     paymentNote: "pago único · entrega en hasta 60 min",
     cta: "Confirmar y recibir mi carta",
     secure: "Pago seguro · Garantía de 7 días",
-    guaranteeNote:
-      "Si la lees y sientes que no era para ti, me escribes en 7 días y te devuelvo cada centavo. El riesgo es mío.",
+    bumpNote: "En el siguiente paso puedes agregar extras a tu lectura.",
     editHint: "Toca cualquier dato para corregirlo",
   },
 

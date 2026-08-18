@@ -535,8 +535,8 @@ function OrderForm() {
                 </span>
                 {FORM_COPY.review.secure}
               </p>
-              <p className="mx-auto mt-3 max-w-[26rem] text-center text-[11px] leading-relaxed text-muted-foreground/70">
-                {FORM_COPY.review.guaranteeNote}
+              <p className="mt-2 text-center text-[11px] text-muted-foreground/60">
+                {FORM_COPY.review.bumpNote}
               </p>
             </div>
           )}
