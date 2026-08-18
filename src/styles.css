@@ -58,6 +58,9 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --font-display: "Cormorant Garamond", ui-serif, Georgia, serif;
   --font-sans: "Jost", ui-sans-serif, system-ui, sans-serif;
+  /* Preços: o Cormorant é fino demais e os algarismos ficam frouxos.
+     O Playfair tem numeral cheio e alinhado, que é o que o preço pede. */
+  --font-price: "Playfair Display", ui-serif, Georgia, serif;
 }
 
 :root {

@@ -29,7 +29,7 @@ export const COPY = {
     cardReveal: "Lo que él calla también habla. Hoy, por fin, vas a poder leerlo.",
     cta: "Quiero leer lo que él siente",
     badges: ["Entrega en hasta 60 min", "100% personalizada", "Escrita a mano, sin robots"],
-    secure: "Pedido seguro · Tú eliges WhatsApp o correo",
+    secure: "Tarotista Anciana",
     microProof: {
       stars: 5,
       quote: "Parecía que era él hablándome.",
@@ -46,18 +46,21 @@ export const COPY = {
       {
         numeral: "I",
         icon: "search",
+        emoji: "🔍",
         title: "El motivo real de su distancia",
         text: "Casi nunca es lo que él dice en voz alta. A veces es orgullo, a veces miedo, a veces alguien más en el medio. La carta muestra lo que quedó guardado debajo.",
       },
       {
         numeral: "II",
         icon: "heart",
+        emoji: "❤️‍🔥",
         title: "Si el sentimiento sigue vivo",
         text: "Aunque se muestre ausente, seco o distante. El comportamiento engaña; la energía no. Vas a saber si todavía queda algo ahí, o si se terminó de verdad.",
       },
       {
         numeral: "III",
         icon: "hourglass",
+        emoji: "⏳",
         title: "El momento correcto de actuar",
         text: "De nada sirve saber lo que siente y moverte en el momento equivocado. Te muestro cuándo dar el siguiente paso sin volver a lastimarte.",
       },
@@ -99,22 +102,22 @@ export const COPY = {
     ],
     steps: [
       {
-        step: "01",
+        step: "💬",
         title: "Me cuentas tu caso",
         text: "Tu situación y la pregunta que más te aprieta el pecho.",
       },
       {
-        step: "02",
+        step: "🃏",
         title: "Abro el Tarot para tu historia",
         text: "Una tirada dirigida solo a ustedes dos, a nadie más.",
       },
       {
-        step: "03",
+        step: "💘",
         title: "Accedo al campo de la relación",
         text: "El hilo energético que el silencio y la distancia no borran.",
       },
       {
-        step: "04",
+        step: "📬",
         title: "Escribo y te la envío",
         text: "Tu carta llega en hasta 60 minutos donde tú elijas.",
       },
@@ -129,16 +132,19 @@ export const COPY = {
     items: [
       {
         icon: "letter",
+        emoji: "💌",
         title: "Tu Carta Canalizada personalizada",
         text: "Un mensaje profundo, escrito como si viniera directo de él. Los sentimientos que se tragó y todo lo que se le quedó atorado en la garganta y nunca salió.",
       },
       {
         icon: "orb",
+        emoji: "🔮",
         title: "Respuesta directa a tu pregunta",
         text: "Me cuentas esa duda que te aprieta el pecho, la que te da vergüenza decir en voz alta. Te respondo con el Tarot, sin rodeos y sin «depende». La respuesta que viniste a buscar.",
       },
       {
         icon: "moon",
+        emoji: "🌙",
         title: "Consejo especial del Tarot",
         text: "Un mensaje mío para ti, de mujer a mujer. Sobre qué hacer con esa verdad ahora y cómo dar el siguiente paso sin volver a lastimarte.",
       },
@@ -260,7 +266,6 @@ export const COPY = {
     /* Meios de pagamento locais — {payments} vem de offer.ts, por país. */
     paymentsLabel: "Pagas en tu moneda, a tu manera",
     paymentsText: "{payments}",
-    paymentsNote: "Sin cargos por conversión sorpresa. El precio que ves es el que pagas.",
   },
 
   /* ---------------- DOS FUTUROS ---------------- */
@@ -374,6 +379,47 @@ export const COPY = {
   stickyCta: {
     label: "Quiero mi carta",
     price: "hoy, en 60 min",
+  },
+
+  /**
+   * Avisos que sobem no canto inferior esquerdo.
+   * {name} é sorteado da lista de nomes.
+   *
+   * ATENÇÃO: hoje esses avisos são texto fixo, não refletem pedido nenhum.
+   * Aviso de compra inventado é propaganda enganosa em MX/CO/CL/AR. Quando o
+   * checkout estiver ligado, alimentar `SocialProof` com pedidos reais.
+   */
+  socialProof: {
+    names: [
+      "María",
+      "Ana",
+      "Carmen",
+      "Lucía",
+      "Valentina",
+      "Sofía",
+      "Camila",
+      "Daniela",
+      "Gabriela",
+      "Paola",
+      "Andrea",
+      "Fernanda",
+      "Rocío",
+      "Mariana",
+      "Alejandra",
+      "Ximena",
+    ],
+    messages: [
+      "{name} recibió su mensaje del Destino",
+      "{name} acaba de pedir su Carta Canalizada",
+      "{name} ya está leyendo lo que él sentía",
+      "{name} recuperó el amor de su vida",
+      "{name} descubrió por qué él se alejó",
+      "{name} dejó de imaginar y por fin supo",
+      "{name} durmió en paz por primera vez en meses",
+      "{name} tuvo su respuesta en menos de 40 minutos",
+      "{name} entendió lo que él nunca dijo",
+      "{name} soltó el peso que cargaba hace meses",
+    ],
   },
 } as const;
 

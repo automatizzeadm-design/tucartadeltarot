@@ -1,25 +1,23 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 
-import { Glyph } from "@/components/Glyph";
 import { cn } from "@/lib/utils";
 
 /**
- * Carta lacrada da seção de preço.
+ * Cartão-postal lacrado da seção de preço.
  *
- * A carta aparece de costas, coberta por um véu escuro e um cadeado que treme de
- * leve — a resposta está ali, só não foi liberada ainda. Ao tocar, o cadeado abre,
- * o véu se dissolve e a visitante segue pro formulário.
- *
- * A metáfora é o produto: ela já tem a carta, falta destravar.
+ * Formato de postal (deitado), com selo no canto e a linha tracejada do verso.
+ * O envelope aparece ao lado de um cadeado fechado que treme de leve: a
+ * resposta já está escrita, só não foi liberada. Ao tocar, o cadeado abre,
+ * o véu sai e a visitante segue pro formulário.
  */
 
 type LockedCardProps = {
-  /** Chamada acima da carta, ex.: "Tu respuesta ya está escrita" */
+  /** Chamada acima do postal */
   eyebrow?: string;
   /** Texto sobre o cadeado, ex.: "Desbloquea tu carta" */
   label: string;
-  /** Linha de apoio abaixo do cadeado */
+  /** Linha de apoio abaixo do postal */
   sublabel?: string;
   /** Para onde a visitante vai depois de destravar */
   to?: string;
@@ -28,13 +26,7 @@ type LockedCardProps = {
 
 const UNLOCK_MS = 750;
 
-export function LockedCard({
-  eyebrow,
-  label,
-  sublabel,
-  to = "/form",
-  className,
-}: LockedCardProps) {
+export function LockedCard({ eyebrow, label, sublabel, to = "/form", className }: LockedCardProps) {
   const navigate = useNavigate();
   const [unlocked, setUnlocked] = useState(false);
   const timer = useRef<number | null>(null);
@@ -68,63 +60,60 @@ export function LockedCard({
         onClick={unlock}
         aria-label={label}
         className={cn(
-          "group/lock relative mx-auto block aspect-[2/3.1] w-[180px] overflow-hidden rounded-2xl",
-          "border border-primary/30 bg-card shadow-[var(--shadow-card)] outline-none",
+          "group/lock relative mx-auto block aspect-[3/2] w-full max-w-[330px] overflow-hidden rounded-2xl",
+          "border-2 border-primary/45 bg-card shadow-[var(--shadow-card)] outline-none",
           "transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5",
           "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-          unlocked && "shadow-[var(--shadow-halo)]",
+          unlocked && "border-primary/80 shadow-[var(--shadow-halo)]",
         )}
       >
-        {/* verso da carta */}
-        <span className="absolute inset-0 bg-[linear-gradient(150deg,oklch(0.19_0.05_275)_0%,oklch(0.125_0.036_268)_55%,oklch(0.17_0.045_282)_100%)]" />
-        <span className="absolute inset-[6px] rounded-xl border border-primary/25" />
-        <span className="absolute inset-[11px] rounded-lg border border-primary/10" />
+        {/* papel do postal */}
+        <span className="absolute inset-0 bg-[linear-gradient(150deg,oklch(0.2_0.05_275)_0%,oklch(0.13_0.036_268)_60%,oklch(0.18_0.045_282)_100%)]" />
+        <span className="absolute inset-[7px] rounded-xl border border-dashed border-primary/25" />
 
-        <svg
-          viewBox="0 0 120 190"
-          className="absolute inset-0 h-full w-full text-primary/60"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="0.7"
-          aria-hidden
-        >
-          <circle cx="60" cy="70" r="24" />
-          <circle cx="60" cy="70" r="17" opacity="0.6" />
-          <path d="M60 46v-8M60 102v8M36 70h-8M92 70h8M43 53l-6-6M77 87l6 6M77 53l6-6M43 87l-6 6" />
-          <path d="M28 158h64M32 164h56" opacity="0.5" />
-          <path d="M20 24h80M20 30h80" opacity="0.35" />
-        </svg>
+        {/* selo, no canto de cima à direita */}
+        <span className="absolute right-4 top-4 flex h-9 w-8 items-center justify-center rounded-[3px] border border-dashed border-primary/40 text-sm">
+          🔮
+        </span>
 
-        {/* véu — a carta está lacrada até ela tocar */}
+        {/* linha do verso do postal */}
+        <span className="absolute inset-y-[22%] right-[24%] w-px bg-primary/15" />
+
+        {/* véu — o postal está lacrado até ela tocar */}
         <span
           className={cn(
-            "absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_45%,oklch(0.05_0.03_268/0.55),oklch(0.05_0.03_268/0.88))]",
+            "absolute inset-0 bg-[radial-gradient(80%_65%_at_45%_50%,oklch(0.05_0.03_268/0.5),oklch(0.05_0.03_268/0.85))]",
             unlocked && "animate-veil-lift",
           )}
         />
 
-        {/* cadeado */}
-        <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-4">
-          <span className="relative flex h-16 w-16 items-center justify-center">
-            {!unlocked && (
-              <span
-                className="absolute inset-0 animate-pulse-ring rounded-full border border-primary/40"
-                aria-hidden
-              />
-            )}
-            <span
-              className={cn(
-                "relative text-primary",
-                unlocked ? "animate-lock-pop" : "animate-lock-rattle",
+        {/* envelope + cadeado */}
+        <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-5">
+          <span className="flex items-center gap-3">
+            <span className="text-[2.6rem] leading-none drop-shadow-[0_4px_14px_oklch(0.05_0.03_268/0.9)]">
+              💌
+            </span>
+            <span className="relative flex items-center justify-center">
+              {!unlocked && (
+                <span
+                  className="absolute -inset-2 animate-pulse-ring rounded-full border border-primary/40"
+                  aria-hidden
+                />
               )}
-            >
-              <Glyph name={unlocked ? "lock-open" : "lock"} className="h-11 w-11" />
+              <span
+                className={cn(
+                  "relative text-[2.2rem] leading-none",
+                  unlocked ? "animate-lock-pop" : "animate-lock-rattle",
+                )}
+              >
+                {unlocked ? "🔓" : "🔒"}
+              </span>
             </span>
           </span>
 
           <span
             className={cn(
-              "font-display text-[1.05rem] leading-tight text-foreground transition-opacity duration-300",
+              "font-display text-[1.15rem] leading-tight text-foreground transition-opacity duration-300",
               unlocked && "opacity-0",
             )}
           >
@@ -132,7 +121,7 @@ export function LockedCard({
           </span>
         </span>
 
-        {/* brilho que atravessa a carta */}
+        {/* brilho que atravessa o postal */}
         <span className="pointer-events-none absolute inset-0 animate-card-sheen bg-[linear-gradient(105deg,transparent_35%,oklch(0.95_0.08_90/0.07)_50%,transparent_65%)]" />
       </Link>
 

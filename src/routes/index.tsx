@@ -16,7 +16,7 @@ import { GoldButton } from "@/components/GoldButton";
 import { Countdown, SlotsMeter } from "@/components/Countdown";
 import { Testimonials } from "@/components/Testimonials";
 import { LockedCard } from "@/components/LockedCard";
-import { StickyCta } from "@/components/StickyCta";
+import { SocialProof } from "@/components/SocialProof";
 import { Glyph, Divider } from "@/components/Glyph";
 
 export const Route = createFileRoute("/")({
@@ -91,9 +91,9 @@ function Landing() {
   }, []);
 
   return (
-    <main className="relative overflow-x-hidden pb-28">
+    <main className="relative overflow-x-hidden pb-16">
       <StarField />
-      <StickyCta label={COPY.stickyCta.label} price={COPY.stickyCta.price} />
+      <SocialProof names={COPY.socialProof.names} messages={COPY.socialProof.messages} />
 
       <div className="mx-auto w-full max-w-[620px] px-[18px]">
         <Topbar />
@@ -211,8 +211,6 @@ function Hero() {
 /* ---------------- LAS 3 REVELACIONES ---------------- */
 
 function Revelations() {
-  const glyphs = ["eye", "heart", "hourglass"] as const;
-
   return (
     <Section id="revelaciones">
       <Pill>{COPY.revelations.eyebrow}</Pill>
@@ -224,8 +222,8 @@ function Revelations() {
           <Reveal key={item.title} delay={i * 90}>
             <article className="panel p-5">
               <div className="flex items-start gap-4">
-                <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border text-gold">
-                  <Glyph name={glyphs[i] ?? "star"} className="h-5 w-5" />
+                <span className="mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-border text-[1.35rem] leading-none">
+                  {item.emoji}
                 </span>
                 <div>
                   <p className="font-display text-xs tracking-[0.3em] text-gold/60">
@@ -302,7 +300,7 @@ function Mechanism() {
           key={i}
           className={
             i === COPY.mechanism.paragraphs.length - 1
-              ? "mt-5 border-l-2 border-gold/50 pl-4 font-display text-lg italic leading-relaxed text-foreground"
+              ? "mt-4 text-[0.95rem] leading-relaxed text-foreground underline decoration-gold/70 decoration-1 underline-offset-[6px]"
               : "mt-4 text-[0.95rem] leading-relaxed text-muted-foreground"
           }
         >
@@ -313,7 +311,7 @@ function Mechanism() {
       <ol className="mt-6 grid gap-2">
         {COPY.mechanism.steps.map((s) => (
           <li key={s.step} className="panel flex items-start gap-3 p-4">
-            <span className="font-display text-lg leading-none text-gold/70">{s.step}</span>
+            <span className="text-[1.5rem] leading-none">{s.step}</span>
             <div>
               <h3 className="font-display text-base leading-tight text-foreground">{s.title}</h3>
               <p className="mt-0.5 text-[0.82rem] leading-relaxed text-muted-foreground">
@@ -330,8 +328,6 @@ function Mechanism() {
 /* ---------------- ENTREGABLES ---------------- */
 
 function Deliverables() {
-  const glyphs = ["letter", "orb", "moon"] as const;
-
   return (
     <Section id="recibes">
       <Pill>{COPY.deliverables.eyebrow}</Pill>
@@ -342,8 +338,8 @@ function Deliverables() {
         {COPY.deliverables.items.map((item, i) => (
           <Reveal key={item.title} delay={i * 90}>
             <article className="panel p-5 text-center">
-              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-border text-gold">
-                <Glyph name={glyphs[i] ?? "letter"} className="h-6 w-6" />
+              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-border text-[1.5rem] leading-none">
+                {item.emoji}
               </span>
               <h3 className="mt-3 font-display text-xl leading-snug text-foreground">
                 {item.title}
@@ -406,11 +402,14 @@ function Authority() {
 function AntiAi() {
   return (
     <Section id="aviso">
-      <Pill>{COPY.antiAi.eyebrow}</Pill>
-      <Title>{COPY.antiAi.title}</Title>
+      {/* Bloco único: chapéu, título e texto todos dentro do mesmo quadro */}
+      <div className="panel border-rose/30 p-6">
+        <Pill>{COPY.antiAi.eyebrow}</Pill>
+        <Title>{COPY.antiAi.title}</Title>
 
-      <div className="panel mt-6 border-rose/30 p-6">
-        <p className="text-[0.95rem] leading-relaxed text-muted-foreground">{COPY.antiAi.lead}</p>
+        <p className="mt-5 text-[0.95rem] leading-relaxed text-muted-foreground">
+          {COPY.antiAi.lead}
+        </p>
         <p className="mt-4 text-center font-display text-xl italic text-rose">
           {COPY.antiAi.warning}
         </p>
@@ -504,13 +503,15 @@ function Offer({ country }: { country: CountryOffer }) {
       <Pill>{COPY.offer.eyebrow}</Pill>
       <Title>{COPY.offer.title}</Title>
 
-      <div className="panel mt-6 p-6 text-center">
-        <p className="text-left text-[0.92rem] leading-relaxed text-muted-foreground">
-          {COPY.offer.anchorText.replace("{anchor}", country.anchor)}
-        </p>
+      {/* Ancoragem de preço fica FORA do quadro de compra: ela contextualiza,
+          o quadro decide. Misturar as duas coisas diluía o bloco. */}
+      <p className="mt-5 text-[0.92rem] leading-relaxed text-muted-foreground">
+        {COPY.offer.anchorText.replace("{anchor}", country.anchor)}
+      </p>
 
-        <Divider className="my-6" />
-
+      {/* Quadro de compra — borda dourada mais forte que a dos demais painéis,
+          porque é o único bloco da página que precisa gritar */}
+      <div className="mt-7 rounded-[18px] border-2 border-gold/55 bg-panel p-6 text-center shadow-[var(--shadow-halo)]">
         <h3 className="font-display text-xl text-foreground">{COPY.offer.includesTitle}</h3>
 
         <ul className="mt-4 grid gap-2.5 text-left">
@@ -533,8 +534,16 @@ function Offer({ country }: { country: CountryOffer }) {
         />
 
         <div className="mt-7">
-          <p className="text-lg text-muted-foreground line-through">{country.from}</p>
-          <p className="font-display text-[3.2rem] font-semibold leading-none text-gold">
+          {/* De: riscado em vermelho. Por: em verde — o contraste faz o
+              desconto ser lido antes mesmo dos números */}
+          <p className="relative inline-block text-lg text-muted-foreground">
+            {country.from}
+            <span
+              className="absolute inset-x-0 top-1/2 h-[2px] -rotate-3 bg-[oklch(0.62_0.21_25)]"
+              aria-hidden
+            />
+          </p>
+          <p className="font-price text-[3.4rem] font-bold leading-none text-[oklch(0.78_0.17_150)]">
             {country.price}
           </p>
           <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-rose">
@@ -562,9 +571,6 @@ function Offer({ country }: { country: CountryOffer }) {
           </p>
           <p className="mt-1.5 text-[0.82rem] leading-relaxed text-foreground/90">
             {COPY.offer.paymentsText.replace("{payments}", paymentsFor(country.code))}
-          </p>
-          <p className="mt-1.5 text-[11px] leading-relaxed text-muted-foreground">
-            {COPY.offer.paymentsNote}
           </p>
         </div>
       </div>
