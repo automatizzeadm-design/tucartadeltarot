@@ -364,10 +364,22 @@ function Authority() {
       <Title>{COPY.authority.title}</Title>
 
       <div className="panel mt-6 p-6 text-center">
-        {/* Emblema no lugar da foto — trocar por retrato real quando houver */}
-        <span className="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-border text-gold">
-          <Glyph name="moon" className="h-9 w-9" />
-        </span>
+        {/* Retrato da Ana Yeda. Enquanto COPY.brand.photo estiver vazio,
+            entra o emblema de lua no lugar. */}
+        {COPY.brand.photo ? (
+          <img
+            src={COPY.brand.photo}
+            alt={COPY.brand.photoAlt}
+            width={112}
+            height={112}
+            loading="lazy"
+            className="mx-auto h-28 w-28 rounded-full border-2 border-gold/50 object-cover shadow-[var(--shadow-halo)]"
+          />
+        ) : (
+          <span className="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-border text-gold">
+            <Glyph name="moon" className="h-9 w-9" />
+          </span>
+        )}
         <p className="mt-4 font-display text-2xl text-gold">{COPY.brand.author}</p>
         <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
           {COPY.brand.role}

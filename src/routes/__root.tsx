@@ -83,7 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "Una carta canalizada con Tarot, escrita a mano para tu caso, con la traducción de lo que él siente y no dice. Entrega en hasta 60 minutos por WhatsApp o correo.",
       },
-      { name: "author", content: "Yeda Serena" },
+      { name: "author", content: "Ana Yeda" },
       { name: "theme-color", content: "#151a2e" },
       {
         property: "og:title",

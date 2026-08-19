@@ -13,8 +13,17 @@ export const COPY = {
 
   brand: {
     name: "Carta Canalizada",
-    author: "Yeda Serena",
+    author: "Ana Yeda",
     role: "Tarotista · Carta Canalizada",
+    /**
+     * FOTO DA ANA YEDA.
+     * 1. Salve o arquivo em `public/` (ex.: public/ana-yeda.jpg)
+     * 2. Aponte aqui com a barra na frente: "/ana-yeda.jpg"
+     * Deixe "" e a página mostra o emblema de lua no lugar.
+     * Ideal: quadrada, rosto centralizado, no mínimo 400×400.
+     */
+    photo: "",
+    photoAlt: "Ana Yeda, tarotista",
   },
 
   /* ---------------- HERO ---------------- */
@@ -156,7 +165,7 @@ export const COPY = {
     eyebrow: "No es un robot. Es una mujer que ya lloró igual que tú.",
     title: "Quién se va a sentar a escribir tu carta",
     paragraphs: [
-      "Mucho gusto, soy Yeda Serena. Soy tarotista desde hace más de 16 años. No es un pasatiempo: es mi vida.",
+      "Mucho gusto, soy Ana Yeda. Soy tarotista desde hace más de 16 años. No es un pasatiempo: es mi vida.",
       "En estos 16 años, más de 7.000 mujeres han pasado por mis manos, entre consultas y cursos en América Latina, Europa y Estados Unidos. De ellas, más de 4.500 ya pidieron su Carta Canalizada. Cada una pasa por mí, una por una. Siento tu caso antes de escribir la primera palabra: por eso la carta toca exactamente donde tiene que tocar.",
       "Y no, no importa desde qué país me escribas. El orgullo de un hombre callado se lee igual en Ciudad de México, en Bogotá, en Lima o en Buenos Aires.",
     ],
@@ -302,7 +311,7 @@ export const COPY = {
       "Recibes tu Carta Canalizada, la lees con calma y la sientes. Si por cualquier motivo crees que no era para ti, me escribes dentro de 7 días. Te devuelvo cada centavo, sin preguntas y sin letras chiquitas.",
     ],
     highlight: "O la carta te toca el corazón, o no pagas nada.",
-    signature: "Con cariño, Yeda Serena",
+    signature: "Con cariño, Ana Yeda",
     cta: "Sí, quiero saber hoy",
     ctaSub: "Entrega en hasta 60 min o te devuelvo tu dinero",
   },
@@ -372,8 +381,8 @@ export const COPY = {
       { label: "Privacidad", href: "#" },
     ],
     disclaimer:
-      "Yeda Serena no tiene ninguna relación institucional con Meta, Facebook, Instagram, WhatsApp ni Facebook Messenger. Este servicio tiene carácter de acompañamiento espiritual y entretenimiento, y no sustituye orientación médica, psicológica ni jurídica.",
-    rights: "© 2026 Yeda Serena · Carta Canalizada con Tarot · Todos los derechos reservados",
+      "Ana Yeda no tiene ninguna relación institucional con Meta, Facebook, Instagram, WhatsApp ni Facebook Messenger. Este servicio tiene carácter de acompañamiento espiritual y entretenimiento, y no sustituye orientación médica, psicológica ni jurídica.",
+    rights: "© 2026 Ana Yeda · Carta Canalizada con Tarot · Todos los derechos reservados",
   },
 
   stickyCta: {
@@ -432,7 +441,7 @@ export const FORM_COPY = {
   },
   header: {
     title: "Tu Carta Canalizada",
-    author: "por Yeda Serena",
+    author: "por Ana Yeda",
     stepLabel: "Paso {current} de {total}",
     back: "Volver",
     next: "Continuar",
