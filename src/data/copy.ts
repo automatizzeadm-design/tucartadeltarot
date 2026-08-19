@@ -25,7 +25,7 @@ export const COPY = {
     photo: "/ana-yeda.jpg",
     photoAlt: "Ana Yeda, tarotista",
     /** Logo do topo. Arte dourada sobre fundo preto — ver nota no Topbar. */
-    logo: "/logo.png",
+    logo: logoAsset.url,
   },
 
   /* ---------------- HERO ---------------- */
