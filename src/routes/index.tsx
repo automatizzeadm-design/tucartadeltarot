@@ -509,10 +509,11 @@ function Offer({ country }: { country: CountryOffer }) {
         {COPY.offer.anchorText.replace("{anchor}", country.anchor)}
       </p>
 
-      {/* Quadro de compra — borda dourada mais forte que a dos demais painéis,
-          porque é o único bloco da página que precisa gritar */}
-      <div className="mt-7 rounded-[18px] border-2 border-gold/55 bg-panel p-6 text-center shadow-[var(--shadow-halo)]">
-        <h3 className="font-display text-xl text-foreground">{COPY.offer.includesTitle}</h3>
+      {/* O que ela leva — painel discreto, só inventário */}
+      <div className="panel mt-7 p-6">
+        <h3 className="text-center font-display text-xl text-foreground">
+          {COPY.offer.includesTitle}
+        </h3>
 
         <ul className="mt-4 grid gap-2.5 text-left">
           {COPY.offer.includes.map((item) => (
@@ -524,55 +525,37 @@ function Offer({ country }: { country: CountryOffer }) {
             </li>
           ))}
         </ul>
+      </div>
 
-        {/* Carta lacrada — o cadeado abre e leva pro formulário */}
-        <LockedCard
-          className="mt-8"
-          eyebrow={COPY.offer.lockedCard.eyebrow}
-          label={COPY.offer.lockedCard.label}
-          sublabel={COPY.offer.lockedCard.sublabel}
-        />
+      {/* O postal É o bloco de compra: cadeado, texto, preço e botão juntos.
+          Comprar deixa de ser "pagar" e vira "destravar a carta". */}
+      <LockedCard
+        className="mt-6"
+        eyebrow={COPY.offer.lockedCard.eyebrow}
+        label={COPY.offer.lockedCard.label}
+        text={COPY.offer.lockedCard.text}
+        from={country.from}
+        price={country.price}
+        paymentNote={COPY.offer.paymentNote}
+        cta={COPY.offer.cta}
+        ctaSub={COPY.offer.ctaSub}
+      />
 
-        <div className="mt-7">
-          {/* De: riscado em vermelho. Por: em verde — o contraste faz o
-              desconto ser lido antes mesmo dos números */}
-          <p className="relative inline-block text-lg text-muted-foreground">
-            {country.from}
-            <span
-              className="absolute inset-x-0 top-1/2 h-[2px] -rotate-3 bg-[oklch(0.62_0.21_25)]"
-              aria-hidden
-            />
-          </p>
-          <p className="font-price text-[3.4rem] font-bold leading-none text-[oklch(0.78_0.17_150)]">
-            {country.price}
-          </p>
-          <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-rose">
-            {COPY.offer.paymentNote}
-          </p>
-        </div>
+      <p className="mt-4 flex items-center justify-center gap-2 text-[11px] text-muted-foreground">
+        <span className="text-gold">
+          <Glyph name="shield" className="h-3.5 w-3.5" />
+        </span>
+        {COPY.offer.guaranteeStrip}
+      </p>
 
-        <div className="mt-6">
-          <GoldButton to="/form" sublabel={COPY.offer.ctaSub}>
-            {COPY.offer.cta}
-          </GoldButton>
-        </div>
-
-        <p className="mt-4 flex items-center justify-center gap-2 text-[11px] text-muted-foreground">
-          <span className="text-gold">
-            <Glyph name="shield" className="h-3.5 w-3.5" />
-          </span>
-          {COPY.offer.guaranteeStrip}
+      {/* Meios de pagamento locais — na LATAM é o que destrava quem não tem cartão internacional */}
+      <div className="mt-5 rounded-xl border border-border px-4 py-3 text-center">
+        <p className="text-[10px] uppercase tracking-[0.16em] text-gold/70">
+          {COPY.offer.paymentsLabel}
         </p>
-
-        {/* Meios de pagamento locais — na LATAM é o que destrava quem não tem cartão internacional */}
-        <div className="mt-5 rounded-xl border border-border px-4 py-3">
-          <p className="text-[10px] uppercase tracking-[0.16em] text-gold/70">
-            {COPY.offer.paymentsLabel}
-          </p>
-          <p className="mt-1.5 text-[0.82rem] leading-relaxed text-foreground/90">
-            {COPY.offer.paymentsText.replace("{payments}", paymentsFor(country.code))}
-          </p>
-        </div>
+        <p className="mt-1.5 text-[0.82rem] leading-relaxed text-foreground/90">
+          {COPY.offer.paymentsText.replace("{payments}", paymentsFor(country.code))}
+        </p>
       </div>
     </Section>
   );

@@ -259,8 +259,8 @@ export const COPY = {
     lockedCard: {
       eyebrow: "Tu carta ya está aquí. Solo falta abrirla.",
       label: "Desbloquea tu carta",
-      sublabel:
-        "Tu respuesta ya existe: está esperando del otro lado de este candado. Toca la carta y la tienes hoy mismo.",
+      /* Texto dentro do postal, logo abaixo do cadeado */
+      text: "Tu respuesta ya está escrita del otro lado de este candado. Ábrelo ahora y hoy mismo dejas de imaginar.",
     },
 
     /* Meios de pagamento locais — {payments} vem de offer.ts, por país. */
