@@ -3,6 +3,9 @@
  * Espanhol neutro LATAM (sem "vos", sem gírias regionais, tratamento "tú").
  * Para editar qualquer palavra da página, edite aqui — nenhum texto fica solto nos componentes.
  */
+import logoAsset from "@/assets/logo-carta-canalizada.png.asset.json";
+
+
 
 export const COPY = {
   meta: {
