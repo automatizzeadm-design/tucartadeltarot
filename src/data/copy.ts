@@ -22,8 +22,10 @@ export const COPY = {
      * Deixe "" e a página mostra o emblema de lua no lugar.
      * Ideal: quadrada, rosto centralizado, no mínimo 400×400.
      */
-    photo: "",
+    photo: "/ana-yeda.jpg",
     photoAlt: "Ana Yeda, tarotista",
+    /** Logo do topo. Arte dourada sobre fundo preto — ver nota no Topbar. */
+    logo: "/logo.png",
   },
 
   /* ---------------- HERO ---------------- */

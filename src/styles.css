@@ -332,6 +332,30 @@
   }
 }
 
+/* Logo do topo: respira devagar, sem chamar atenção pra si */
+@keyframes logo-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Halo dourado atrás da logo, acompanhando o mesmo compasso */
+@keyframes logo-glow {
+  0%,
+  100% {
+    opacity: 0.22;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 0.46;
+    transform: scale(1.05);
+  }
+}
+
 /* Cadeado da oferta: treme de leve, como se pedisse pra ser aberto */
 @keyframes lock-rattle {
   0%,
@@ -417,6 +441,14 @@
   animation: pulse-ring 2.6s ease-out infinite;
 }
 
+@utility animate-logo-float {
+  animation: logo-float 8s ease-in-out infinite;
+}
+
+@utility animate-logo-glow {
+  animation: logo-glow 7s ease-in-out infinite;
+}
+
 @utility animate-lock-rattle {
   animation: lock-rattle 4.5s ease-in-out infinite;
 }
@@ -433,7 +465,9 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-lock-rattle,
   .animate-lock-pop,
-  .animate-veil-lift {
+  .animate-veil-lift,
+  .animate-logo-float,
+  .animate-logo-glow {
     animation: none;
   }
 }
