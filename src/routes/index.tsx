@@ -127,23 +127,18 @@ function Landing() {
 function Topbar() {
   return (
     <header className="pt-8 text-center">
-      <div className="animate-rise-fade relative mx-auto w-full max-w-[280px] sm:max-w-[340px]">
-        {/* Halo dourado pulsando devagar atrás da arte */}
+      <div className="animate-rise-fade relative mx-auto w-full max-w-[300px] sm:max-w-[360px]">
+        {/* Sombra sutil para destacar a logo dourada sobre o fundo azul-noite */}
         <span
-          className="animate-logo-glow pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(58%_58%_at_50%_50%,oklch(0.82_0.13_85/0.3),transparent_72%)]"
+          className="pointer-events-none absolute inset-0 -z-10 rounded-2xl bg-[radial-gradient(55%_55%_at_50%_50%,oklch(0.82_0.13_85/0.18),transparent_72%)]"
           aria-hidden
         />
-        {/*
-          A logo é arte dourada sobre fundo PRETO, e o fundo da página é azul-noite.
-          `mix-blend-mode: screen` apaga o preto do PNG e deixa só o dourado,
-          então não aparece um retângulo preto em volta.
-        */}
         <img
           src={COPY.brand.logo}
           alt={`${COPY.brand.name} — ${COPY.brand.role}`}
           width={1200}
           height={400}
-          className="animate-logo-float mx-auto h-auto w-full [mix-blend-mode:screen]"
+          className="animate-logo-float mx-auto h-auto w-full drop-shadow-[0_8px_30px_oklch(0.03_0.02_268/0.6)]"
         />
       </div>
 
